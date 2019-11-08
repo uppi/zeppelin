@@ -1,0 +1,34 @@
+<html>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementsByTagName('textarea')[0];
+    const iframe = document.getElementsByTagName('iframe')[0];
+    const submit = document.getElementsByTagName('input')[0];
+    submit.onclick = function() {
+      console.log(textarea.value);
+      iframe.contentWindow.postMessage({newData: textarea.value});
+    };
+  });
+</script>
+<body>
+<div>hello wrld</div>
+<div>
+  <p><textarea>age	value
+19	4
+20	3
+21	7
+22	9
+23	20
+24	24
+25	44
+26	77
+27	94
+28	103
+29	97</textarea></p>
+  <p><input type="button" value="Submit" /></p>
+</div>
+<div>
+  <iframe src="/zep" width="700" height="400"></iframe>
+</div>
+</body>
+</html>

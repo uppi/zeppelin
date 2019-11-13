@@ -40,7 +40,38 @@ function EmptyCtrl($scope, $rootScope, $window) {
   $scope.addEvent = () => {
   };
 
-  let sampleConfig = {'graph': {'mode': 'scatterChart', 'height': 300, 'optionOpen': false, 'rotate': {}}};
+  let sampleConfig = {
+    'graph': {
+      'mode': 'multiBarChart',
+      'height': 366,
+      'optionOpen': false,
+      'setting': {
+        'multiBarChart': {
+          'rotate': {
+            'degree': '-45',
+          },
+          'xLabelStatus': 'default',
+        },
+      },
+      'commonSetting': {},
+      'keys': [
+        {
+          'name': 'age',
+          'index': 0,
+          'aggr': 'sum',
+        },
+      ],
+      'groups': [],
+      'values': [
+        {
+          'name': 'value',
+          'index': 1,
+          'aggr': 'sum',
+        },
+      ],
+    },
+    'helium': {},
+  };
   window.addEventListener(
     'message',
     function(msg) {
@@ -52,8 +83,8 @@ function EmptyCtrl($scope, $rootScope, $window) {
             type: 'TABLE',
             data: msg.data.newData,
           },
-          $scope.config || sampleConfig,
-          {
+          msg.data.config || sampleConfig,
+          msg.data.paragraph || {
             settings: {params: {}, forms: {}},
             results: {code: 'SUCCESS', msg: []},
             config: {'results': [sampleConfig]},
@@ -62,4 +93,5 @@ function EmptyCtrl($scope, $rootScope, $window) {
       }
     },
     false);
+  window.parent.postMessage({iframeReady: window.name}, '*');
 }

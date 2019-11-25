@@ -13,6 +13,13 @@
  */
 
 angular.module('zeppelinWebApp').service('websocketMsgSrv', function() {
+  this.commitParagraph = (id, title, text, newParagraphConfig, params) => {
+    window.parent.postMessage({
+      sender: window.name,
+      kind: 'configUpdate',
+      config: JSON.stringify(newParagraphConfig.results[1]),
+    }, '*');
+  };
 });
 angular.module('zeppelinWebApp').service('ngToast', function() {
 });
@@ -35,48 +42,18 @@ function EmptyCtrl($scope, $rootScope, $window) {
 
   $scope.looknfeel = 'default';
   $scope.paragraph = {id: 1};
-  $scope.revisionView = true;
 
   $scope.addEvent = () => {
   };
 
   let sampleConfig = {
-    'graph': {
-      'mode': 'multiBarChart',
-      'height': 366,
-      'optionOpen': false,
-      'setting': {
-        'multiBarChart': {
-          'rotate': {
-            'degree': '-45',
-          },
-          'xLabelStatus': 'default',
-        },
-      },
-      'commonSetting': {},
-      'keys': [
-        {
-          'name': 'age',
-          'index': 0,
-          'aggr': 'sum',
-        },
-      ],
-      'groups': [],
-      'values': [
-        {
-          'name': 'value',
-          'index': 1,
-          'aggr': 'sum',
-        },
-      ],
-    },
+    'graph': {'mode': 'table', 'height': 330, 'optionOpen': false},
     'helium': {},
   };
   window.addEventListener(
     'message',
     function(msg) {
       if (msg.data.newData !== undefined) {
-        console.log($scope.config);
         $rootScope.$broadcast(
           'updateResult',
           {
@@ -93,5 +70,5 @@ function EmptyCtrl($scope, $rootScope, $window) {
       }
     },
     false);
-  window.parent.postMessage({iframeReady: window.name}, '*');
+  window.parent.postMessage({sender: window.name, kind: 'ready'}, '*');
 }

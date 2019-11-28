@@ -56,6 +56,7 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/ngtoast/dist/ngToast.js',
       'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+      'bower_components/jszip/dist/jszip.js',
       'bower_components/excel-builder-js/dist/excel-builder.dist.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
